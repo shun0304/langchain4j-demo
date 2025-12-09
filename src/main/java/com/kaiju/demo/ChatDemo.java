@@ -1,5 +1,6 @@
 package com.kaiju.demo;
 
+import com.kaiju.constant.AIConstants;
 import dev.langchain4j.data.message.*;
 import dev.langchain4j.model.chat.StreamingChatModel;
 import dev.langchain4j.model.chat.response.ChatResponse;
@@ -10,17 +11,12 @@ import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
 
+import static com.kaiju.config.LlmConfig.getChatModel;
+import static com.kaiju.config.LlmConfig.getStreamChatModel;
 import static dev.langchain4j.internal.Utils.readBytes;
 import static dev.langchain4j.model.LambdaStreamingResponseHandler.onPartialResponseAndError;
 
 public class ChatDemo {
-    private static OpenAiChatModel getChatModel() {
-        return OpenAiChatModel.builder()
-                .baseUrl("http://langchain4j.dev/demo/openai/v1")
-                .apiKey("demo")
-                .modelName("gpt-4o-mini")
-                .build();
-    }
 
     private static void chatdemo1() {
         String response = getChatModel().chat("说你好");
@@ -67,12 +63,7 @@ public class ChatDemo {
     }
 
     private static void streamDemo() {
-        StreamingChatModel model = OpenAiStreamingChatModel.builder()
-                .baseUrl("http://langchain4j.dev/demo/openai/v1")
-                .apiKey("demo")
-                .modelName("gpt-4o-mini")
-                .build();
-        model.chat("Tell me a joke",
+        getStreamChatModel().chat("Tell me a joke",
                 onPartialResponseAndError(System.out::print, Throwable::printStackTrace));
     }
 

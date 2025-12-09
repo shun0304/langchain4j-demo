@@ -15,4 +15,5 @@ import static dev.langchain4j.service.spring.AiServiceWiringMode.*;
 public interface Assistant {
     @SystemMessage("你是一个java开发专家")
     String chat(@UserMessage String userMessage);
+
 }

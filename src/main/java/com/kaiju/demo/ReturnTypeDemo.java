@@ -1,7 +1,6 @@
 package com.kaiju.demo;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
+import com.kaiju.constant.AIConstants;
 import com.kaiju.model.Person;
 import com.kaiju.enums.Priority;
 import com.kaiju.service.PersonExtractor;
@@ -10,27 +9,10 @@ import com.kaiju.service.SentimentAnalyzer;
 import dev.langchain4j.model.openai.OpenAiChatModel;
 import dev.langchain4j.service.AiServices;
 
-import static dev.langchain4j.model.chat.Capability.RESPONSE_FORMAT_JSON_SCHEMA;
+import static com.kaiju.config.LlmConfig.getChatModel;
+import static com.kaiju.config.LlmConfig.getJsonChatModel;
 
-public class ReturnTypeTest {
-
-    private static OpenAiChatModel getChatModel() {
-        return OpenAiChatModel.builder()
-                .baseUrl("http://langchain4j.dev/demo/openai/v1")
-                .apiKey("demo")
-                .modelName("gpt-4o-mini")
-                .build();
-    }
-
-    private static OpenAiChatModel getJsonChatModel() {
-        return OpenAiChatModel.builder()
-                .baseUrl("http://langchain4j.dev/demo/openai/v1")
-                .apiKey("demo")
-                .modelName("gpt-4o-mini")
-                .supportedCapabilities(RESPONSE_FORMAT_JSON_SCHEMA)
-                .strictJsonSchema(true)
-                .build();
-    }
+public class ReturnTypeDemo {
 
     private static void returnBooltest() {
         SentimentAnalyzer sentimentAnalyzer = AiServices.create(SentimentAnalyzer.class, getChatModel());
